@@ -22,7 +22,7 @@ void despilarPalabra(cola,char * );
 int main(int argc, char *argv[]) {
 	
 	
-   char palabra[]="holaaah"; 	
+   char palabra[]="holaaahoh"; 	
 	
 	cola inicio=NULL;
 	
@@ -31,48 +31,58 @@ int main(int argc, char *argv[]) {
 	mostrarPalabra(inicio);
 	
 	revelarMensaje(&inicio,palabra);
-	
+	printf("\nPalabra sin encriptar \n");
 	mostrarPalabra(inicio);
 		
 	return 0;
 }
 
+
 void revelarMensaje(cola *inicio,char *palabra)
 {
 	
   cola actual1,actual2;
-  int cont=0,pos[2]={0},tam,i=0,posi=0;
+  int cont=0,pos[2]={0},tam,i=0,posi=0,index=1;
   	
   actual1=*inicio;
-  
+  int	tamCola= dimensionCola(*inicio);
   tam=strlen(palabra);
   printf("\t\t\tPalabra cola actualmente \n");
   mostrarPalabra(*inicio); 
   printf("\nPalabra comparar %s ",palabra);
-   while(*inicio!=NULL)
+   while(actual1!=NULL)
    {  
       i=0;
       cont=0;
       posi=0;
       while(i<tam)
 	  {
-	  	printf("\nComparando %c : %c ",(*inicio)->letra,palabra[i]);
-	  	if((*inicio)->letra==palabra[i])
+	  	printf("\nComparando %c : %c ",actual1->letra,palabra[i]);
+	  	if(actual1->letra==palabra[i] && palabra[i]!='0')
 	    {   printf("\nIgual y pos= %d \n",i);
 	        pos[posi++]=i;
 	    	cont++;
+	    	printf("\n\t\t Contador %d ",cont);
 		}
+		
 		if(cont==2)
-		{
-		  	
-		  pop(inicio,pos,palabra); 	
+		{	
+		  pop(inicio,pos,palabra);//
+		  return;
 		}
 	    i++;
 	    
-	  }  
+	  }
+	
       printf("\n\n");
-      printf("\ncont = %d ",cont);
-     *inicio=(*inicio)->sig;
+    //  printf("\ncont = %d ",cont);
+     actual1=actual1->sig;
+     if(actual1->sig==NULL)
+     {
+     	return;
+	 }
+     printf("\n\t\t\t INDEX= %d  ",index);
+     index++;
    }
 	
 	
@@ -91,7 +101,7 @@ void pop(cola *inicio,int pos[], char *palabra)
 	printf("\t\t\tPalabra entrante %s ",palabra);
 	printf("\n\t\t\tLetras  a eliminar %c y %c \n",palabra[pos[0]],palabra[pos[1]]);
 	
-	if(*inicio!=NULL )
+	if(*inicio!=NULL)
 	{
 	  if((*inicio)->letra==palabra[pos[0]])
 	  {
@@ -99,7 +109,7 @@ void pop(cola *inicio,int pos[], char *palabra)
 	  	printf("\nBorrando %c ",(*inicio)->letra);
 	  	*inicio=(*inicio)->sig;
 		free(temp);	  	
-	  	
+	  	cont++;
 	  }else
 	  {
 	  	anterior=*inicio;//4
@@ -117,6 +127,7 @@ void pop(cola *inicio,int pos[], char *palabra)
 			printf("\nBorrando %c ",actual->letra);
 			anterior->sig=actual->sig;
 			free(temp);
+			cont++;
 		}
 	  }
 		
@@ -124,10 +135,11 @@ void pop(cola *inicio,int pos[], char *palabra)
 	  
 //	despilarPalabra(*inicio,palabra); 
  	printf("\nAntes de borrar el segundo \n");
-	mostrarPalabra(*inicio);   
- 	printf("\nInicio %c ",(*inicio)->letra);  
-	if(*inicio!=NULL)
+ //	mostrarPalabra(*inicio);   
+ //	printf("\nInicio %c ",(*inicio)->letra);  
+	if(*inicio!=NULL && palabra[pos[1]]!='0')
 	{
+		printf("\n\t\t\tCreo estar aqui \n"); 
 	    anterior=*inicio;//4
 		actual=(*inicio)->sig;//3
 		printf("\t\t\tAnterior: %c   Actual: %c ",anterior->letra,actual->letra);
@@ -145,17 +157,19 @@ void pop(cola *inicio,int pos[], char *palabra)
 			printf("\nBorrando %c ",actual->letra);
 			anterior->sig=actual->sig;
 			free(temp);
+			cont++;
 		}
 		    
-		    	
-					
-		
-	  despilarPalabra(*inicio,palabra);	
-	  revelarMensaje(inicio,palabra);	
+		   	
+		if(cont==2)			
+		 {
+		  printf("\nCONT antes de entrar %d=== \n",cont); 	
+		  despilarPalabra(*inicio,palabra);	
+	      revelarMensaje(inicio,palabra);	
+		 }
 	}
-		
-	
-		
+	    
+			
 }	
 
 int dimensionCola(cola inicio)
@@ -170,7 +184,7 @@ int dimensionCola(cola inicio)
 		
 	}
 	
-	return cont-1;
+	return cont;
 	
 }
 
