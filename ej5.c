@@ -17,24 +17,36 @@ typedef struct nodo Lista;
 typedef Lista *lista1,*lista2,*lista3,*lista4,*lista5;
 
 
-int menu();
-void calcular(lista3 );
+int menu();//Muestra un menu de opciones
+void calcular(lista3 );//Calcula la dimension de la lista
+
+
+//Funciones para insertar elementos en una lista
+
 void pushLista1(lista1 *,int);
 void pushLista2(lista2 *,int);
 void pushLista3(lista3 *,int);
 void pushLista4(lista4 *,int);
 void pushLista5(lista5 *,int);
-void mostrarNuevaLista(lista5 );
+//////////////////////////////////////////////////
+
+
+//Funciones de manipulacion de listas
 void formarLista(lista3,lista4,lista5 *);
 void llenarListas(lista1 *,lista3 *,lista4 *);
 void invertirLista(lista1 *,lista2 *);
-void mostrar(lista1);
-void mostrarListaInvertida(lista2);
 int veririfcarRepetidos(lista5 *,int);
 void moverNodo(lista3 *);
 void reinsertarNodo(lista3 *,int);
-void mostrarLista3(lista3);
+////////////////////////////////////////////////
 
+//Funciones para mostrar elementos de la lista
+void mostrarNuevaLista(lista5 );
+void mostrar(lista1);
+void mostrarListaInvertida(lista2);
+void mostrarLista3(lista3);
+void mostrarLista4(lista4);
+///////////////////////////////////////////////
 int main(int argc, char *argv[]) {
 	
 	int num,cont=0,opc;
@@ -47,7 +59,7 @@ int main(int argc, char *argv[]) {
 	
 	llenarListas(&inicio1,&inicio3,&inicio4);
 	
-	mostrar(inicio1);
+//	mostrar(inicio1);
 	
 	opc=menu();
 	
@@ -55,21 +67,37 @@ int main(int argc, char *argv[]) {
 	{
 		switch(opc)
 		{
-			case 1: invertirLista(&inicio1,&inicio2);
+			case 1: printf("\n\n\t\t\tMostrando lista antes de ser invertida \n\n\n");
+			        mostrar(inicio1);
+			        printf("\n\n\t\t\tMostrando lista invertida \n\n");
+			        invertirLista(&inicio1,&inicio2);
 			        mostrarListaInvertida(inicio2);
 				    break;
 				
-			case 2: formarLista(inicio3,inicio4,&inicio5);
-			        mostrarNuevaLista(inicio5); 
-				
-				    break;
-			case 3: calcular(inicio3);
-			        break;
-			case 4: moverNodo(&inicio3);
+			case 2: printf("\n\t\t\tMostrando listas a comparar \n");
 			        mostrarLista3(inicio3);
+			        printf("\n\n");
+			        mostrarLista4(inicio4);
+			        formarLista(inicio3,inicio4,&inicio5);
+			        printf("\n\n\n\t\t\tNueva lista \n");
+			        mostrarNuevaLista(inicio5);
+					printf("\n\n"); 
+				    system("pause");
+	                system("cls");
+				    break;
+			case 3: mostrarLista3(inicio3);
+			        calcular(inicio3);
+			        printf("\n\n");
+			        system("pause");
+	                system("cls");
+			        break;
+			case 4: mostrarLista3(inicio3);
+			        moverNodo(&inicio3);
+			        mostrarLista3(inicio3);
+			        system("pause");
+	                system("cls");
 			        break; 
 			
-			case 5:	break;
 			
 		}
 		
@@ -81,9 +109,24 @@ int main(int argc, char *argv[]) {
 	return 0;
 }
 
+
 void mostrarLista3(lista3 inicio)
 {
-  printf("\n\nLa lista es: \n\n\n");
+ 
+	
+	while(inicio!=NULL)
+	{
+		
+	   printf(" [%d] ",inicio->item);
+	   inicio=inicio->sig;	
+		
+	}
+	
+}
+
+void mostrarLista4(lista4 inicio)
+{
+ 
 	
 	while(inicio!=NULL)
 	{
@@ -102,10 +145,10 @@ void moverNodo(lista3 *inicio)
 	
 	int dato;
 	
-	printf("\n\t\t\tIngrese el numero que desea borrar \n");
+	printf("\n\t\t\tIngrese el numero que desea borrar ");
 	scanf("%d",&dato);
 	
-	if(dato==(*inicio)->item)
+	if(dato==(*inicio)->item)//Verificamos si el nodo es el primero
 	{
 		temp=*inicio;
 		*inicio=(*inicio)->sig;
@@ -114,13 +157,13 @@ void moverNodo(lista3 *inicio)
 		anterior=*inicio;
 		actual=(*inicio)->sig;
 		
-		while(actual!=NULL && actual->item!=dato)
+		while(actual!=NULL && actual->item!=dato)//Hasta encontrarlo
 		{
 			anterior=actual;
 			actual=actual->sig;
 		}
 		
-		if(actual!=NULL)
+		if(actual!=NULL)//Procedemos a la eliminacion
 		{
 			temp=actual;
 			anterior->sig=actual->sig;
@@ -128,8 +171,7 @@ void moverNodo(lista3 *inicio)
 		}
 	}
 	
-	mostrarLista3(*inicio);
-	reinsertarNodo(inicio,dato);
+	reinsertarNodo(inicio,dato);//Enviamos el dato para su posterior reubicacion dentro de la lista
 	
 }
 void reinsertarNodo(lista3 *inicio,int x)
@@ -142,26 +184,37 @@ void reinsertarNodo(lista3 *inicio,int x)
 	
 	nuevo=(lista3)malloc(sizeof(Lista));
 	
-	printf("\n\t\t\tIngrese el numero del nodo\n");
+	printf("\n\t\t\tIngrese el numero para reinsertarlo: ");//Pedimos en donde ubicaremos el nodo que fue eliminado antes
 	scanf("%d",&nodo);	
 	
 	if(nuevo!=NULL)
 	{
-		
 		nuevo->item=x;
-	    actual=*inicio;	
-		while(actual!=NULL && actual->item!=nodo)
-		{
-			anterior=actual;
-			actual=actual->sig;
-			
-		}
 		
-		if(actual->sig==NULL)
-		   printf("\n\t\t\tNo encontrado \n");
-		 
-		nuevo->sig=actual;
-		anterior->sig=nuevo;   
+		if((*inicio)->item==nodo)//Verificamos si la reubicacion esta en el primero elemento
+	    {
+	   	  nuevo->sig=*inicio;
+		  *inicio=nuevo;	   
+	    }else
+	    {// de lo contrario hacemos la insercion en cualquier nodo
+	    	anterior=*inicio;
+		    actual=(*inicio)->sig;	
+			while(actual!=NULL && actual->item!=nodo)//
+			{
+				anterior=actual;
+				actual=actual->sig;
+				
+			}
+			
+			if(actual->sig==NULL)
+			   printf("\n\t\t\tNo encontrado \n");
+			 
+			nuevo->sig=actual;
+			anterior->sig=nuevo;
+		}
+	    
+	
+		   
 		
 	}
 }
@@ -171,7 +224,6 @@ void calcular(lista3 inicio)
 {
 	int cont=0;
 	
-	printf("\n\nLa lista es: \n\n\n");
 	
 	while(inicio!=NULL)
 	{
@@ -185,8 +237,6 @@ void calcular(lista3 inicio)
 
 void mostrarNuevaLista(lista5 inicio)
 {
-	
-	printf("\n\nLa lista es: \n\n\n");
 	
 	while(inicio!=NULL)
 	{
@@ -205,24 +255,24 @@ void formarLista(lista3 inicio3,lista4 inicio4,lista5 *inicio5)
 	lista4 actual2;
 	
 	
-	while(inicio3!=NULL)
+	//La intencion es comparar cada elemento de la lista3 con todos los elementos de la lista4
+	//Insertar los numeros iguales de cada lista en una nueva lista, sin que estos se repitan
+	
+	while(inicio3!=NULL)//Iniciamos con la lista3
 	{
 		actual1=inicio3;
 		actual2=inicio4;
-		
-		printf("\nComparando %d con ",actual1->item);
-		while(actual2!=NULL)
+	
+		while(actual2!=NULL)//Comparamos con los datos de la lista4
 		{
-			printf(" : %d ",actual2->item);
-			
-			if(actual1->item==actual2->item)
+		
+			if(actual1->item==actual2->item)//Comparamos dato con dato de cada lista
 			{
-				printf("\nComun\n"); 
-				
-				int band=veririfcarRepetidos(inicio5,actual1->item);
-			    if(band==1)
+			
+				int band=veririfcarRepetidos(inicio5,actual1->item);//Verificamos si en la nueva lista ya se encuentra un numero repetido
+			    if(band==1)//Si hay un repetido, avanzamos al siguiente dato
 				  goto here;  
-				else	
+				else//De lo contrario lo insertamos en la nueva lista	
 				    pushLista5(inicio5,actual1->item);
 			}
 		
@@ -233,7 +283,6 @@ void formarLista(lista3 inicio3,lista4 inicio4,lista5 *inicio5)
 		
 		
 		inicio3=inicio3->sig;
-		
 		
 	}
 	
@@ -252,23 +301,20 @@ int veririfcarRepetidos(lista5 *inicio,int x)
 	while(actual!=NULL)
 	{
 		num=actual->item;
-		printf("Buscando %d: %d ",x,num);
-		
-	    if(x==num)
+	
+	    if(x==num)//Si el numero es igual a uno de los que ya se encuentran en la lista nueva,entonces evitamos insertarlo
 	    {
-	    	printf("\nrepetido \n"); 
 	    	return 1;
 	    	
 		}
-		
-		    
+			    
 	   actual=actual->sig;	    
 	}
 	
 	return 0;
 }
 
-
+//Llenamos las listas con numeros aleatorios
 void llenarListas(lista1 *inicio1,lista3 *inicio3,lista4 *inicio4)
 {
 	int cont=0,num;
@@ -311,13 +357,15 @@ void invertirLista(lista1 *inicio1,lista2 *inicio2)
 	
 	lista1 temp,anterior,actual;
 	
+  //Procedemos a sacar los elementos de la lista1 por el final,y enviar cada datos a una nueva lista que se insertara por el final	
+	
   while(*inicio1!=NULL)
 	{
 		actual=*inicio1;
 		
-		if(actual->sig==NULL)
+		if(actual->sig==NULL)//Si es el ultimo elemento de la lista
 		{
-		 pushLista2(inicio2,actual->item);
+		 pushLista2(inicio2,actual->item);//Enviamos el dato
 		 temp=actual;
 		 *inicio1=NULL; 
 		  free(actual);	
@@ -331,7 +379,7 @@ void invertirLista(lista1 *inicio1,lista2 *inicio2)
 			actual=actual->sig;
 			
 		}
-		pushLista2(inicio2,actual->item);
+		pushLista2(inicio2,actual->item);//Enviamos el ultimo elemento de la lista
 	    temp=actual;
 	    anterior->sig=actual->sig;
 		free(actual);
@@ -344,28 +392,27 @@ void invertirLista(lista1 *inicio1,lista2 *inicio2)
 int menu()
 {
 	int opc;
-	
+	printf("\n\n\n\t\t\t\t\t\t M  E  N  U \n\n\n");
 	do
 	{
-	  printf("\n\n\n\t\t\t1.Invertir la lista 1 \n");
-	  printf("\t\t\t2.Formar una lista que contenga los elementos comunes de otras dos \n");
-	  printf("\t\t\t3.Calcular la longitud de la lista en cada momento\n");
-	  printf("\t\t\t4. Mover un nodo j, n posiciones más adelante.\n");
-	  printf("\t\t\t5.Salir \n");
+	  printf("\n\n\n\t\t\t1.Invertir la lista 1 \n\n");
+	  printf("\t\t\t2.Formar una lista que contenga los elementos comunes de otras dos \n\n");
+	  printf("\t\t\t3.Calcular la longitud de la lista en cada momento\n\n");
+	  printf("\t\t\t4. Mover un nodo j, n posiciones más adelante.\n\n");
+	  printf("\t\t\t5.Salir \n\n");
 	  printf("\n\n\n\t\t\tOPCION = ");
 	  scanf("%d",&opc);	
 		
 		
 	}while(opc<1 || opc>5);
 	
+	return opc;
 	
 	
 }
 
 void mostrar(lista1 inicio)
-{
-	printf("\n\nLa lista es: \n\n\n");
-	
+{	
 	while(inicio!=NULL)
 	{
 		
@@ -378,7 +425,7 @@ void mostrar(lista1 inicio)
 
 void mostrarListaInvertida(lista2 inicio)
 {
-	printf("\n\nLa lista es: \n\n\n");
+	
 	
 	while(inicio!=NULL)
 	{
@@ -396,30 +443,36 @@ void pushLista2(lista2 *ptrInicio,int x)
 	
 	lista2 nuevo,actual,previo;
 	
-	nuevo=(lista1)malloc(sizeof(Lista));
+	nuevo=(lista2)malloc(sizeof(Lista));
 	
-	printf("\nentra a pila2 %d \n",x);
 	
+	//Insertamos los elementos por el ultimo elemento
 	if(nuevo!=NULL)
 	{
-	   nuevo->item=x;
-	   
-	    	
-	   if(*ptrInicio==NULL)
-	   {
-	   	  *ptrInicio=nuevo;
-	       nuevo->sig=NULL;	  
-	   	
-	   }else
-	       {
-	       	 nuevo->sig=*ptrInicio;
-	       	 *ptrInicio=nuevo;
-	       	 
-		   }
-	   
-	   	
-	   	
+		nuevo->item=x;
+	   if(*ptrInicio==NULL)//Veirificamos si es el primero elemento
+		   {
+		   	 nuevo->sig=NULL;
+		   	 *ptrInicio=nuevo;
+		   	 actual=nuevo;
+		   	 
+		   }else
+		     {
+		       nuevo->sig=NULL;
+		   
+		       actual=*ptrInicio;
+		    	
+			   while(actual!=NULL && actual->sig!=NULL)
+			   { 
+			   	 actual=actual->sig;
+		         	   	 
+			   }
+			   
+			   	actual->sig=nuevo;	
+		     	
+			 }
 	}
+	
 	
 }
 
@@ -431,7 +484,7 @@ void pushLista5(lista5 *ptrInicio,int x)
 	
 	nuevo=(lista5)malloc(sizeof(Lista));
 	
-	printf("\nentra a pila5 %d \n",x);
+
 	
 	if(nuevo!=NULL)
 	{
@@ -464,7 +517,7 @@ void pushLista3(lista3 *ptrInicio,int x)
 	
 	nuevo=(lista3)malloc(sizeof(Lista));
 	
-	printf("\nentra a pila3 %d \n",x);
+
 	
 	if(nuevo!=NULL)
 	{
@@ -496,8 +549,7 @@ void pushLista4(lista4 *ptrInicio,int x)
 	lista4 nuevo,actual,previo;
 	
 	nuevo=(lista4)malloc(sizeof(Lista));
-	
-	printf("\nentra a pila4 %d \n",x);
+
 	
 	if(nuevo!=NULL)
 	{
@@ -530,7 +582,6 @@ void pushLista1(lista1 *ptrInicio,int x)
 	
 	nuevo=(lista1)malloc(sizeof(Lista));
 	
-	printf("\nentra a pila1 %d \n",x);
 	
 	if(nuevo!=NULL)
 	{

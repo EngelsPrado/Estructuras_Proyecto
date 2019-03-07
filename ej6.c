@@ -14,11 +14,11 @@ typedef struct nodo Cola;
 typedef Cola *cola;
 
 
-void pushCola(cola *);
-void popCola(cola *);
-void popColaImpresion(cola *);
-void mostrarEstado(cola);
-int menu();
+void pushCola(cola *);//Inserta elementos de la cola
+void popCola(cola *);//Elimina elementos de la cola
+void popColaImpresion(cola *);//Elimina una impresion, incluyendo las que estan encimas de esa
+void mostrarEstado(cola);//Mostrar la cola de impresiones pendientes
+int menu();//Muestra un menu de opciones
 
 int main(int argc, char *argv[]) {
 	
@@ -47,6 +47,7 @@ int main(int argc, char *argv[]) {
 		   	
 		   	
 		}
+		printf("\n\n");
 		mostrarEstado(inicio);
 		
 		opc=menu();
@@ -63,6 +64,7 @@ int menu()
 {
    int opc;
    
+   printf("\n\n\n\t\t\t\t\t M  E  N  U\n\n\n");
    do
    {
    	  printf("\n\n\n\t\t\t1.Enviar impresion \n");
@@ -84,30 +86,35 @@ void mostrarEstado(cola inicio)
 	
 	actual=inicio;
 	
-	
+	printf("\nNumero de trabajo %15s \n\n","Usuario");
 	while(actual!=NULL)
 	{
 		
-		printf(" %s ",actual->user);
+		printf("\n %d %30s ",actual->num,actual->user);
 		actual=actual->sig;
 		
 		
 	}
-	
+	printf("\n\n");
+	system("pause");
+	system("cls");
 }
 
+
+//Insertamos la impresion en forma de cola
 void pushCola(cola *ptrInicio)
 {
-	static int cont=0;
+	static int cont=1;
 	
 	cola nuevo,actual,previo;
 	
 	nuevo=(cola)malloc(sizeof(Cola));
 	fflush(stdin);
-    printf("\t\t\tIngrese el nombre de usuario \n");
+    printf("\t\t\tIngrese el nombre de usuario: ");
     gets(nuevo->user);
     fflush(stdin);
-    printf("\t\t\tIngrese el programa desde el cual se envia la impresion \n");
+    printf("\n\n");
+    printf("\t\t\tIngrese el programa desde el cual se envia la impresion:  ");
     gets(nuevo->program);
 	nuevo->num=cont++;
 	
@@ -138,22 +145,24 @@ void pushCola(cola *ptrInicio)
 	 } 
 }
 
-
+//Eliminamos la impresion y/o las que estan encimas de ellas
 void popColaImpresion(cola *inicio)
 {
 	int dato;
 	
 	cola temp,actual,anterior;
 	
-	printf("\n\t\t\tIngrese el numero que desea borrar \n");
+	printf("\n\t\t\tIngrese el numero de trabajo que desea borrar:   ");
 	scanf("%d",&dato);
 	
-	if(dato==(*inicio)->num)
+	if(*inicio!=NULL)
 	{
+		if(dato==(*inicio)->num)
+	   {
 		temp=*inicio;
 		*inicio=(*inicio)->sig;
 		free(temp);
-	}else{
+	  }else{
 		anterior=*inicio;
 		actual=(*inicio)->sig;
 		
@@ -175,9 +184,11 @@ void popColaImpresion(cola *inicio)
 		 }
 		
 		
+	 }
 	}
 }
 
+//Eliminamos las impresiones mas recientes en ser enviadas para imprimir
 void popCola(cola *inicio )
 {
 	

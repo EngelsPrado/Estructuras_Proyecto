@@ -13,9 +13,9 @@ struct nodo{
 typedef struct nodo Cola;
 typedef Cola *cola;
 
-void pushCola(cola *);
-void pop(cola *);
-void mostrarCola(cola);
+void pushCola(cola *,int *);//Inserta elementos en la cola
+void pop(cola *);//saca un elemento de la cola
+void mostrarCola(cola);//Muestra los elementos de la cola
 int menu();
 
 int main(int argc, char *argv[]) {
@@ -31,16 +31,22 @@ int main(int argc, char *argv[]) {
 		switch(opc)
 		{
 			
-		  case 1: pushCola(&inicio); 
+		  case 1: pushCola(&inicio,&acum); 
 		          break;
 		  
 		  case 2: pop(&inicio);
+		          system("pause");
 		          break;
 		  
 	
 		}
-		
-	mostrarCola(inicio);	
+	 printf("\n\t\t\tAsientos ocupados \n");	
+	 mostrarCola(inicio);	
+	 printf("\n\n");
+	 printf("\n\t\t\tEl total a pagar hasta el momento es= %d ",acum);
+	 printf("\n\n");
+	 system("pause");
+	 system("cls");
 	 opc=menu();
 	 	
 	}while(opc!=3);
@@ -53,7 +59,7 @@ int menu()
 {
 	int opc;
 	
-	
+	printf("\n\n\n\t\t\t\t M   E   N    U \n\n\n");
 	do{
 		printf("\n\n\n\t\t\t1.Sentar cliente \n");
 	    printf("\t\t\t2.Retirar un cliente \n");
@@ -78,10 +84,9 @@ void mostrarCola(cola inicio)
 	   inicio=inicio->sig;	
 		
 	}
-	
-	printf("\n\t\t\tEl total a pagar hasta el momento es: %d ",acum);
-}
 
+}
+//Retorna la dimension de la cola
 int dimensionCola(cola inicio)
 {
    int cont=0;
@@ -96,6 +101,7 @@ int dimensionCola(cola inicio)
    return cont;
 }
 
+//Funcion que eliminar elementos en cualquier parte de la cola
 void pop(cola *inicio)
 {
 	
@@ -105,14 +111,16 @@ void pop(cola *inicio)
 	
 	tam=dimensionCola(*inicio);
 	
-    dato=1+rand()%(tam+1 - 1);
+    dato=1+rand()%(tam+1 - 1);//Asignamos un valor aleatorio a dato
 
-	
+
+	printf("\n\t\t\tSaliendo clientes # %d ",dato);
 	if(dato==(*inicio)->item)
 	{
 		temp=*inicio;
 		*inicio=(*inicio)->sig;
 		free(temp);
+		
 	}else{
 		anterior=*inicio;
 		actual=(*inicio)->sig;
@@ -134,33 +142,31 @@ void pop(cola *inicio)
 	
 }
 
-void pushCola(cola *ptrInicio)
+
+//Funcion que inserta elementos en forma de cola
+void pushCola(cola *ptrInicio,int *acum)
 {
 	static int cont=1;
 	
 	cola nuevo,actual,previo;
 	
 	nuevo=(cola)malloc(sizeof(Cola));
-
-	
-    nuevo->item=cont++;
-	
 		
 	if(nuevo!=NULL)
 	{
 	   
-	   
+	  nuevo->item=cont++;  
 	    	
 	   if(*ptrInicio==NULL)
 	   {
 	   	  *ptrInicio=nuevo;
 	       nuevo->sig=NULL;	  
-	   	
+	       *acum+=nuevo->item;  	
 	   }else
 	       {
 	       	 nuevo->sig=*ptrInicio;
 	       	 *ptrInicio=nuevo;
-	       	 
+	       	 *acum+=nuevo->item;
 		   }
 	   
 	   	
