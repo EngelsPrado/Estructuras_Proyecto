@@ -1,7 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+
+
+/*
+
+   Nombre: Engels Prado Herrera                    Asignatura: Estructura de Datos
+    
+   Docente:Lesbia Valerio                          Carrera:Ing.En sistemas de informacion 
+
+   Objetivo: Escriba una función recursiva que reciba dos listas simplemente enlazadas de números enteros y las compare.
+    La función devolverá 1 si son iguales, y 0 en caso contrario
+
+*/
 
 struct nodo{
 

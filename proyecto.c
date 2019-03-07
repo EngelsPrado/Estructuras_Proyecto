@@ -14,23 +14,24 @@ typedef Cola *cola;
 
 void pasarPalabra(cola *,char *);
 void mostrarPalabra(cola);
-void pop(cola *,int [],char []);
-void revelarMensaje(cola *,char *);
+void pop(cola *,int [],char [],char *);
+void revelarMensaje(cola *,char *,char *);
 int dimensionCola(cola );
 void despilarPalabra(cola,char * );
-
+int comparar(char [],char *);
 int main(int argc, char *argv[]) {
 	
 	
-   char palabra[]="eeexafaafmccessndd"; 	
-	
+   char palabra[]="eeexafaafmccessndd",p[10]; 	
+    memset(p,'0',11);	
+ 	
 	cola inicio=NULL;
 	
 	pasarPalabra(&inicio,palabra);
 	
 	mostrarPalabra(inicio);
 	
-	revelarMensaje(&inicio,palabra);
+	revelarMensaje(&inicio,palabra,p);
 	printf("\n\t\t\tPalabra sin encriptar \n");
 	mostrarPalabra(inicio);
 		
@@ -38,11 +39,11 @@ int main(int argc, char *argv[]) {
 }
 
 
-void revelarMensaje(cola *inicio,char *palabra)
+void revelarMensaje(cola *inicio,char *palabra,char *p)
 {
 	
   cola actual1,actual2;
-  int cont=0,pos[2]={0},tam,i=0,posi=0,index=1,tamCola;
+  int cont=0,pos[2]={0},tam,i=0,posi=0,index=1,tamCola,band;
   	
   actual1=*inicio;
   tamCola= dimensionCola(*inicio);
@@ -57,6 +58,8 @@ void revelarMensaje(cola *inicio,char *palabra)
       posi=0;
       while(i<tam)
 	  {
+	  	
+	  	
 	  	if(actual1->letra==palabra[i] && palabra[i]!='0')
 	    {  
 	        pos[posi++]=i;
@@ -64,9 +67,15 @@ void revelarMensaje(cola *inicio,char *palabra)
 		}
 		
 		if(cont==2)
-		{	
-		  pop(inicio,pos,palabra);//
-		  return;
+		{
+		  band=comparar(&actual1->letra,p);
+		  
+		  if(band==0)	
+		   {
+		   	 printf("\n\t\t\tBand %d ",band);
+		   	 pop(inicio,pos,palabra,p);//
+		     return;
+		   }
 		}
 	    i++;
 	    
@@ -85,10 +94,29 @@ void revelarMensaje(cola *inicio,char *palabra)
 	
 }
 
-void pop(cola *inicio,int pos[], char *palabra)
+int comparar(char *letra,char *palabra)
+{
+	
+	int cont=0;
+	int tam=strlen(palabra);
+	
+	while(cont<tam)
+	{
+		printf("\nComparando %c con %c ",*letra,*palabra);
+		if(palabra[cont++]==*letra)
+		   return 1;
+		
+	  
+	}
+	
+	return 0;
+}
+
+void pop(cola *inicio,int pos[], char *palabra,char *p)
 {
 	
 	int cont=0,tam,i=0;
+	static int index=0;
 	
 	cola actual,actual2,temp,anterior;
 	tam=strlen(palabra);
@@ -102,7 +130,7 @@ void pop(cola *inicio,int pos[], char *palabra)
 	  if((*inicio)->letra==palabra[pos[0]])
 	  {
 	  	temp=*inicio;
-	  	printf("\n\t\t\tBorrando %c ",(*inicio)->letra);
+	  	printf("\n\t\t\tBorrando1 %c ",(*inicio)->letra);
 	  	*inicio=(*inicio)->sig;
 		free(temp);	  	
 	  	cont++;
@@ -130,8 +158,18 @@ void pop(cola *inicio,int pos[], char *palabra)
 	}
 	   
 	if(*inicio!=NULL && palabra[pos[1]]!='0')
-	{ 
-	    anterior=*inicio;//4
+	{
+	    
+		if(palabra[pos[1]]==(*inicio)->letra)//Cuando sea el elemento que queremos borrar
+		{
+		  printf("inicio %c ",(*inicio)->letra);	 
+		   temp=*inicio;
+		   *inicio=(*inicio)->sig;	
+			free(temp);
+			cont++;
+		}else
+		{
+		  anterior=*inicio;//4
 		actual=(*inicio)->sig;//3		
 		while(actual!=NULL && actual->letra!=palabra[pos[1]])
 		{
@@ -149,12 +187,18 @@ void pop(cola *inicio,int pos[], char *palabra)
 			cont++;
 		}
 		    
-		   	
-		if(cont==2)			
+		
+		}
+	   
+	   	if(cont==2)			
 		 {	
+		   p[index]=palabra[pos[0]];
+		   printf("\nFormando %s ",p);
+		   index++;
 		  despilarPalabra(*inicio,palabra);	
-	      revelarMensaje(inicio,palabra);	
-		 }
+	      revelarMensaje(inicio,palabra,p);	
+		 }	 
+	    
 	}
 	    
 			

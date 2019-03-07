@@ -1,6 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/*
+
+   Nombre: Engels Prado Herrera                    Asignatura: Estructura de Datos
+    
+   Docente:Lesbia Valerio                          Carrera:Ing.En sistemas de informacion 
+
+   Objetivo: Se tiene un almacén donde se encuentran las neveras fabricadas por una planta, las primeras neveras que     fueron fabricadas están de últimas, dentro del almacén y 
+   las últimas neveras fabricadas, aparecen deprimeras dentro del almacén. Los datos de cada nevera son código y descripción. El almacén dispone de una
+   sola puerta, por donde entran las neveras a ser almacenadas y salen las neveras que se van a distribuir a las tiendas. 
+   Adicionalmente, se tienen solicitudes de neveras realizadas por las tiendas, donde aparece el      
+   nombre de la tienda y la cantidad solicitada de neveras, elabore un algoritmo que permita asignar a cada     
+   tienda las neveras, generando una nueva estructura que contenga la tienda y el código de las neverasasignadas para las ordenes de salidas de las mismas. 
+
+*/
 
 //Dedicada a guardar datos de las neveras
 struct nodo{

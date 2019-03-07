@@ -2,6 +2,27 @@
 #include <stdlib.h>
 #include <time.h>
 
+/*
+
+   Nombre: Engels Prado Herrera                    Asignatura: Estructura de Datos
+    
+   Docente:Lesbia Valerio                          Carrera:Ing.En sistemas de informacion 
+
+   Objetivo:En tu negocio tienes una secuencia de n sillas acomodas en línea recta y numeradas de 1 a n, por cada persona que se siente en una silla con el número x,
+   deberás pagar $x al gobierno, pero como quieres tener cómodos a los clientes, no tienes otra opción que pedirles que tomen asiento;
+   sin embargo, el aprecio por el cliente aún no te ha quitado la codicia, por lo que puedes indicarle a cada cliente donde sentarse, pero el cliente decide cuando irse;
+   desde el momento que un cliente llega hasta el momento que se va,
+   el cliente pasará todo el tiempo sentado en una silla y no estará dispuesto a compartirla con nadie más. 
+ 
+   Escribe un programa que dado el historial de qué clientes llegan y qué clientes se van en orden
+   cronológico (del más reciente al más último),
+    calcule que asientos   asignarles a cada quien para que el
+	dinero que debas pagar al gobierno sea el Mínimo posible. Tu programa deberá funcionar  correctamente.
+
+*/
+
+
+
 struct nodo{
 
   int item;

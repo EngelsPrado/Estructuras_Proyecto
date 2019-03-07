@@ -1,9 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+/*
 
-//mostrar tamanios por lista
+   Nombre: Engels Prado Herrera                    Asignatura: Estructura de Datos
+    
+   Docente:Lesbia Valerio                          Carrera:Ing.En sistemas de informacion 
+
+   Objetivo: Diseñar funciones para trabajar con listas de enteros capaces de realizar las operaciones  siguiente:  
+ 
+                 a) Invertir la lista.                   
+				 b) Formar una lista que contenga los elementos comunes de otras dos.                   
+				 c) Calcular la longitud de la lista en cada momento.                   
+				 d) Mover un nodo j, n posiciones más adelante.
+
+*/
 
 struct nodo{
 

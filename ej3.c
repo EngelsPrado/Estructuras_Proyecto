@@ -1,7 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+/*
+
+   Nombre: Engels Prado Herrera                    Asignatura: Estructura de Datos
+    
+   Docente:Lesbia Valerio                          Carrera:Ing.En sistemas de informacion 
+
+   Objetivo: Un almacén tiene capacidad para apilar n contenedores. Cada contenedor tiene un número de identificación. Cuando se desea retirar un contenedor específico,
+   deben retirarse primero los contenedores que están encima de él y colocarlos en otra pila, efectuar el retiro y regresarlos. 
+   Codifique los métodos Push ( )
+    y Pop ( ) para gestionar los contenedores. 
+
+*/
 
 struct nodo{
 

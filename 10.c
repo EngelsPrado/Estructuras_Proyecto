@@ -1,7 +1,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+/*
+
+   Nombre: Engels Prado Herrera                    Asignatura: Estructura de Datos
+    
+   Docente:Lesbia Valerio                          Carrera:Ing.En sistemas de informacion 
+
+   Objetivo: La Tienda “Compra Feliz”, desea registrar la información de sus productos (código, descripción, precio).
+            Para ello ha solicitado un programa que presente las siguientes opciones: 
+ 
+         Ingresar Productos         Mostrar Productos         Salir 
+ 
+         El usuario debe poder ingresar tantos productos como necesite (n productos). Cuando seleccione
+		 mostrar que presente la lista de todos los productos (código, descripción, precio) Primero que entro          
+		 primero en salir en la lista de productos y al final de la lista mostrada, el producto que tiene el precio          mayor.  Menor. 
+
+*/
+
+
 struct nodo{
 
   int codigo;
@@ -55,7 +72,7 @@ int menu()
 {
 	
 	int opc;
-	
+	printf("\n\n\n\t\t\t\t\t M   E    N     U \n\n\n");
 	do
 	{
 	  printf("\n\n\n\t\t\t1.Insertar nuevo productos \n");

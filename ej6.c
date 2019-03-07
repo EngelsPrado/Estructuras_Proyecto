@@ -1,6 +1,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
+/*
+
+   Nombre: Engels Prado Herrera                    Asignatura: Estructura de Datos
+    
+   Docente:Lesbia Valerio                          Carrera:Ing.En sistemas de informacion 
+
+   Objetivo: En una red LAN, la impresora esta compartida, Windows controla los trabajos a imprimir a través de una cola de impresión.
+   Realice un programa que simule la Cola de impresión de Windows y que presente el menú: 
+ 
+? Enviar Impresión 
+? Imprimir 
+? Eliminar Impresión 
+? Salir 
+
+*/
+
+
 struct nodo{
   int num;
   char user[20];

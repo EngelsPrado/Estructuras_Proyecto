@@ -1,6 +1,29 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+
+/*
+
+   Nombre: Engels Prado Herrera                    Asignatura: Estructura de Datos
+    
+   Docente:Lesbia Valerio                          Carrera:Ing.En sistemas de informacion 
+
+   Objetivo: Un pequeño supermercado dispone en la salida de dos cajas de pago. En el local hay 20 carritos de compra. 
+   Escribir un programa que simule el funcionamiento siguiendo las siguientes reglas. 
+    ? Si cuando llega un cliente no hay ningún carrito disponible espera a que lo haya.
+    ?  Ningún cliente se impacienta y abandona el supermercado sin pasar por alguna de las filas de la caja. 
+	? Cuando un cliente finaliza su compra, se coloca en la fila de la caja que hay menos gente y no se cambia             
+    de fila. 
+	? En el momento en que un cliente paga en la caja, el carro de la compra que tiene queda disponible
+
+*/
+
+
+
+
+
+
+
 struct caja{
 
   int item;

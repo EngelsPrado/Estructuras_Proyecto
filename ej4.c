@@ -4,6 +4,21 @@
 
 #define MES 30
 
+
+/*
+
+   Nombre: Engels Prado Herrera                    Asignatura: Estructura de Datos
+    
+   Docente:Lesbia Valerio                          Carrera:Ing.En sistemas de informacion 
+
+   Objetivo: Dada una lista que se encuentra almacenada en memoria donde cada nodo posee la Temperatura promedio diaria del mes de junio del corriente año. Se pide armar tres listas:  
+ 
+    Una con los nodos cuya componente sea menor a 0º.      
+	Otra con los nodos cuya componente sea mayor a 10º.
+	y la última con los nodos cuyas temperaturas se encuentren en el rango 0-9 inclusive.
+
+*/
+
 struct nodo{
 
   int item;

@@ -2,6 +2,18 @@
 #include <stdlib.h>
 
 
+/*
+
+   Nombre: Engels Prado Herrera                    Asignatura: Estructura de Datos
+    
+   Docente:Lesbia Valerio                          Carrera:Ing.En sistemas de informacion 
+
+   Objetivo: Crear un programa que permita ingresar libros,eliminar libros dentro de un rango especifico,
+             mostrar la suma de los precios de los libros y mostrar el listado de libros menores que un precio 
+
+*/
+
+
 struct nodo{
 
   int codigo;
@@ -155,7 +167,7 @@ void mostrarXprecio(lista inicio)
 {
 	int precio;
 	
-	printf("\n\t\t\tIngrese el precio del libro \n");
+	printf("\n\t\t\tIngrese el precio del libro:");
 	scanf("%d",&precio);
 	
 	printf("\t\t Codigo %10s \n\n\n","Precio");
@@ -170,6 +182,8 @@ void mostrarXprecio(lista inicio)
 		
 	}
 	
+	system("pause");
+	system("cls");
 }
 
 //Busca un libro por el codigo del mismo
